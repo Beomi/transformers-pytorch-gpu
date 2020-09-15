@@ -6,7 +6,7 @@ EXPOSE 8888
 RUN apt-get update && \
     apt-get install -y \
     zsh curl wget unzip git locales \
-    libyaml-cpp-dev python-yaml
+    libyaml-cpp-dev python-yaml screen sudo
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
@@ -30,6 +30,7 @@ RUN pip install konlpy
 ARG UID=1000
 ARG GID=1000
 RUN adduser --uid ${UID} --disabled-password --gecos "" user
+RUN adduser user sudo
 USER user
 WORKDIR /home/user
 # User Level Setup
