@@ -31,6 +31,8 @@ ARG UID=1000
 ARG GID=1000
 RUN adduser --uid ${UID} --disabled-password --gecos "" user
 RUN adduser user sudo
+RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN cat /etc/sudoers
 USER user
 WORKDIR /home/user
 # User Level Setup
