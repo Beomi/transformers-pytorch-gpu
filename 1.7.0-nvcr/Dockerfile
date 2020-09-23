@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/cuda:10.1-devel-ubuntu18.04
+FROM nvcr.io/nvidia/pytorch:20.08-py3
 
 EXPOSE 8888
 
@@ -6,29 +6,25 @@ EXPOSE 8888
 RUN apt-get update && \
     apt-get install -y \
     zsh curl wget unzip git locales \
-    libyaml-cpp-dev python-yaml screen sudo \
-    python3 python3-pip
+    libyaml-cpp-dev python-yaml screen sudo
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# PyTorch
-RUN pip3 install torch==1.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-
 # Jupyter
-RUN pip3 install jupyter
+RUN pip install jupyter
 
 # ML
-RUN pip3 install sklearn pandas numpy
+RUN pip install sklearn pandas numpy
 
 # DL (Pytorch 1.7 installed)
-RUN pip3 install pytorch-lightning neptune-client neptune-notebooks
+RUN pip install pytorch-lightning neptune-client neptune-notebooks
 
 # NLP
-RUN pip3 install \
+RUN pip install \
         transformers \
         emoji soynlp
-RUN pip3 install konlpy 
+RUN pip install konlpy 
 
 # Create User with ZSH
 ARG UID=1000
