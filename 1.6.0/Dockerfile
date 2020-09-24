@@ -27,8 +27,9 @@ RUN pip3 install pytorch-lightning neptune-client neptune-notebooks
 # NLP
 RUN pip3 install \
         transformers \
-        emoji soynlp
-RUN pip3 install konlpy 
+        emoji soynlp konlpy \ 
+        sklearn bokeh seaborn matplotlib \
+        gensim spacy 
 
 # Create User with ZSH
 ARG UID=1000
