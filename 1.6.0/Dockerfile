@@ -29,7 +29,8 @@ RUN pip3 install \
         transformers \
         emoji soynlp konlpy \ 
         sklearn bokeh seaborn matplotlib \
-        gensim spacy 
+        gensim spacy nltk tqdm \
+        fairseq
 
 # Create User with ZSH
 ARG UID=1000
@@ -45,3 +46,4 @@ RUN jupyter nbextension enable --py neptune-notebooks
 ENV SHELL /usr/bin/zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN mkdir /home/user/code
+ENV PATH $PATH:/home/user/.local/bin
