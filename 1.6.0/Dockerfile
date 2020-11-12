@@ -1,4 +1,5 @@
-FROM nvcr.io/nvidia/cuda:10.1-devel-ubuntu18.04
+# FROM nvcr.io/nvidia/cuda:10.1-devel-ubuntu18.04
+FROM pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel
 
 EXPOSE 8888
 
@@ -6,31 +7,30 @@ EXPOSE 8888
 RUN apt-get update && \
     apt-get install -y \
     zsh curl wget unzip git locales \
-    libyaml-cpp-dev python-yaml screen sudo \
-    python3 python3-pip
+    libyaml-cpp-dev python-yaml screen sudo 
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 # PyTorch
-RUN pip3 install torch==1.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+# RUN pip3 install torch==1.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 
 # Jupyter
-RUN pip3 install jupyter
+RUN pip install jupyter
 
 # ML
-RUN pip3 install sklearn pandas numpy
+RUN pip install sklearn pandas
 
-# DL (Pytorch 1.7 installed)
-RUN pip3 install pytorch-lightning neptune-client neptune-notebooks
+# DL
+RUN pip install pytorch-lightning neptune-client neptune-notebooks
 
 # NLP
-RUN pip3 install \
+RUN pip install \
         transformers \
-        emoji soynlp konlpy \ 
-        sklearn bokeh seaborn matplotlib \
-        gensim spacy nltk tqdm \
-        fairseq
+        emoji soynlp konlpy \
+		bokeh seaborn matplotlib \
+		gensim spacy nltk tqdm \
+		fairseq
 
 # Create User with ZSH
 ARG UID=1000
@@ -41,6 +41,7 @@ RUN echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN cat /etc/sudoers
 USER user
 WORKDIR /home/user
+
 # User Level Setup
 RUN jupyter nbextension enable --py neptune-notebooks
 ENV SHELL /usr/bin/zsh
