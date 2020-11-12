@@ -48,3 +48,4 @@ ENV SHELL /usr/bin/zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN mkdir /home/user/code
 ENV PATH $PATH:/home/user/.local/bin
+ENV PYTHONPATH /home/user/.local/lib/python3.7/site-packages
