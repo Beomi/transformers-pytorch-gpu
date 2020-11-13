@@ -7,30 +7,14 @@ EXPOSE 8888
 RUN apt-get update && \
     apt-get install -y \
     zsh curl wget unzip git locales \
-    libyaml-cpp-dev python-yaml screen sudo 
+    libyaml-cpp-dev python-yaml screen \
+    sudo htop
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# PyTorch
-# RUN pip3 install torch==1.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-
-# Jupyter
-RUN pip install jupyter
-
-# ML
-RUN pip install sklearn pandas
-
-# DL
-RUN pip install pytorch-lightning neptune-client neptune-notebooks
-
-# NLP
-RUN pip install \
-        transformers \
-        emoji soynlp konlpy \
-		bokeh seaborn matplotlib \
-		gensim spacy nltk tqdm \
-		fairseq
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 # Create User with ZSH
 ARG UID=1000
