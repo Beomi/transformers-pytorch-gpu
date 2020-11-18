@@ -9,7 +9,7 @@ RUN apt-get update && \
     zsh curl wget unzip git locales \
     libyaml-cpp-dev python-yaml screen \
     sudo htop \
-    llvm-9-dev cmake
+    llvm-9-dev cmake git-lfs vim 
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
